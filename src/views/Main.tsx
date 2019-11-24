@@ -28,6 +28,10 @@ export function Main(): JSX.Element {
 			canvasRef.current.requestPointerLock();
 		}, false);
 
+		document.addEventListener('pointerlockchange', () => {
+			console.log(document.pointerLockElement)
+		}, false);
+
 		document.addEventListener("keypress", (e) => {
 			if (e.keyCode === 13) { // todo alt enter
 				toggleFullScreen();
@@ -107,11 +111,62 @@ class Playground {
 		sphere.checkCollisions = true;
 
 		// GUI
-		var advancedTexture = GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
-        var image = new GUI.Image("cursor", cursorUrl);
+		const advancedTexture = GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+        const image = new GUI.Image("cursor", cursorUrl);
         image.width = "32px";
         image.height = "32px";
         advancedTexture.addControl(image);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        let instanceCount = 30;
+
+        //box.material.disableLighting = true;
+        //box.material.emissiveColor = BABYLON.Color3.White();
+
+        //box.registerInstancedBuffer("color", 4);
+        //box.instancedBuffers.color = new BABYLON.Color4(Math.random(), Math.random(), Math.random(), 1);
+
+        //let baseColors = [];
+      //  let alphas = [];
+
+        for (let i = 0; i < instanceCount - 1; i++) {
+            let instance = sphere.createInstance("sphere" + i);
+            instance.position.x = 20 - Math.random() * 40;
+            instance.position.y = 20 - Math.random() * 40;
+            instance.position.z = 20 - Math.random() * 40;
+            instance.alwaysSelectAsActiveMesh = true;
+
+
+
+            instance.checkCollisions = true;
+            water.addToRenderList(instance);
+
+          //  alphas.push(Math.random());
+         //   baseColors.push(new BABYLON.Color4(Math.random(), Math.random(), Math.random(), 1));
+           // instance.instancedBuffers.color = baseColors[baseColors.length - 1].clone();
+        }
+
+
+
+
+        //scene.freezeActiveMeshes();
+
+
+
 
         return scene;
     }
