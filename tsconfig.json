@@ -21,8 +21,9 @@
         "types": [
             "babylonjs",
             "babylonjs-gui",
+            "babylonjs-procedural-textures",
             "babylonjs-materials"
-        ],
+        ]
     },
     "include": [
         "./src/**/*"
